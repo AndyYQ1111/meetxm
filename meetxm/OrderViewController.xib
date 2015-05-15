@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderViewController">
+            <connections>
+                <outlet property="imgV" destination="U8g-Rz-LpB" id="iws-G8-i6y"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U8g-Rz-LpB">
+                    <rect key="frame" x="100" y="74" width="120" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="2em-re-eL9"/>
+                        <constraint firstAttribute="height" constant="120" id="wiT-q7-pNM"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通过APP上传照片，在景区、酒店、机场、车站等地的旅游电子信息屏冲印。                       " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4p-g6-F6B">
+                    <rect key="frame" x="15" y="229" width="290" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="x4p-g6-F6B" secondAttribute="trailing" constant="15" id="DTa-ab-cxa"/>
+                <constraint firstItem="U8g-Rz-LpB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="aU3-Ol-S0v"/>
+                <constraint firstItem="x4p-g6-F6B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="bNq-eF-bqI"/>
+                <constraint firstItem="x4p-g6-F6B" firstAttribute="top" secondItem="U8g-Rz-LpB" secondAttribute="bottom" constant="35" id="fqO-Lm-Bow"/>
+                <constraint firstAttribute="centerX" secondItem="U8g-Rz-LpB" secondAttribute="centerX" id="n2O-z3-sAZ"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

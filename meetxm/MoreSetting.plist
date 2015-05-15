@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>门票购买</string>
+		<key>image</key>
+		<string>ticket.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>照片冲印</string>
+		<key>image</key>
+		<string>zpcy.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>按摩体验</string>
+		<key>image</key>
+		<string>massage.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>紧急救援</string>
+		<key>image</key>
+		<string>help.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>咨询投诉</string>
+		<key>image</key>
+		<string>tousu.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>关于我们</string>
+		<key>image</key>
+		<string>about.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>设置</string>
+		<key>image</key>
+		<string>setting.png</string>
+	</dict>
+</array>
+</plist>
