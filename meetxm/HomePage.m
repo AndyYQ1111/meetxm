@@ -1,6 +1,6 @@
 //
 //  HomePage.m
-//  
+//
 //
 //  Created by 岳青山 on 15/5/3.
 //
@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _manager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
     
     _moreTabView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bottom"]];
     //self.MoreTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -89,7 +91,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-//    [self.beaconManager stopRangingBeaconsInRegion:self.region01];
+    //    [self.beaconManager stopRangingBeaconsInRegion:self.region01];
 }
 
 
@@ -109,10 +111,10 @@
     NSUInteger homePageInt = [[self.view subviews] indexOfObject:homePageView];
     
     [self.view exchangeSubviewAtIndex:homePageInt withSubviewAtIndex:moreInt];
-
+    
     
     [[self.view layer] addAnimation:animation forKey:@"animation"];
-
+    
 }
 
 - (IBAction)clickLeft:(UIButton *)sender {
@@ -120,7 +122,7 @@
     animation.delegate = self;
     animation.duration = 0.3;
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
-//    animation.type = kCATransitionPush;
+    //    animation.type = kCATransitionPush;
     animation.type = kCATransitionReveal;
     animation.subtype = kCATransitionFromRight;
     
@@ -255,51 +257,83 @@
 - (void)beaconManager:(id)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
     /*
-        UIAlertView* errorView = [[UIAlertView alloc] initWithTitle:@"Ranging error"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [errorView show];
+     UIAlertView* errorView = [[UIAlertView alloc] initWithTitle:@"Ranging error"
+     message:error.localizedDescription
+     delegate:nil
+     cancelButtonTitle:@"OK"
+     otherButtonTitles:nil];
+     [errorView show];
      */
 }
 
 - (void)beaconManager:(id)manager monitoringDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
     /*
-        UIAlertView* errorView = [[UIAlertView alloc] initWithTitle:@"Monitoring error"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-    
-        [errorView show];
+     UIAlertView* errorView = [[UIAlertView alloc] initWithTitle:@"Monitoring error"
+     message:error.localizedDescription
+     delegate:nil
+     cancelButtonTitle:@"OK"
+     otherButtonTitles:nil];
+     
+     [errorView show];
      */
 }
 
 - (void)beaconManager:(id)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region
 {
-//    NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
-//    NSString *atBackground = [userdefaults objectForKey:@"atBackground"];
+    //    NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
+    //    NSString *atBackground = [userdefaults objectForKey:@"atBackground"];
     
     self.beaconsArray = beacons;
     if(beacons.count>0){
-        id beacon = [self.beaconsArray objectAtIndex:0];
-        if ([beacon isKindOfClass:[ESTBeacon class]])
-        {
-            ESTBeacon *eBeacon = (ESTBeacon *)beacon;
-            NSLog(@"Distance: %@", eBeacon.distance);
-            
-            NSString *majorOfIBeacon=[NSString stringWithFormat:@"%@",eBeacon.major];
-            
-            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            
-            [dic setValue:majorOfIBeacon forKey:@"major"];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlaySpeech" object:dic];
+        float dictance=1000;
+        for (int i=0;i<beacons.count;i++) {
+            id beacon = beacons[i];
+            if([beacon isKindOfClass:[ESTBeacon class]]){
+                ESTBeacon *eBeacon = (ESTBeacon *)beacon;
+                if(dictance>eBeacon.distance.floatValue){
+                    dictance = eBeacon.distance.floatValue;
+                    NSLog(@"最近基站的距离%.2f",dictance);
+                    majorStr =[NSString stringWithFormat:@"%@",eBeacon.major];
+                }
+            }
         }
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setValue:majorStr forKey:@"major"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PlaySpeech" object:dic];
     }
 }
 /**  iBeaconSDK deleget  **/
+
+/**
+ *  提示打开蓝牙警示框代理方法
+ */
+-(void)centralManagerDidUpdateState:(CBCentralManager *)central
+
+{
+    
+    switch (central.state) {
+            
+        case CBCentralManagerStatePoweredOn:
+            
+            NSLog(@"蓝牙已打开,请扫描外设");
+            
+            break;
+            
+        case CBCentralManagerStatePoweredOff:
+            
+            NSLog(@"蓝牙关闭...");
+            
+            
+            break;
+            
+        default:
+            
+            break;
+            
+    }
+    
+}
 
 @end

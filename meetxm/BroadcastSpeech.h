@@ -14,7 +14,8 @@
 @interface BroadcastSpeech : BaseViewController
 {
     AVAudioPlayer *audioplayer;
-    int i;
+    NSString *majorStr;
+    NSMutableArray *majorArr;
 }
 
 @end

@@ -26,10 +26,13 @@
  iBeaconSDK扫描基站需要导入的头文件
  */
 
-@interface HomePage : UIViewController<UITableViewDataSource,UITableViewDelegate,ESTBeaconManagerDelegate>
+@interface HomePage : UIViewController<UITableViewDataSource,UITableViewDelegate,ESTBeaconManagerDelegate,CBCentralManagerDelegate>
 {
     __weak IBOutlet UIView *moreView;
     __weak IBOutlet UIView *homePageView;
+    
+    //扫描到的基站的最近距离
+    NSString *majorStr;
     
 }
 /***********iBeaconSDK*************/
@@ -38,6 +41,7 @@
 @property (nonatomic, strong) NSArray *beaconsArray;
 /***********iBeaconSDK*************/
 
+@property(nonatomic,strong)CBCentralManager *manager;
 
 @property (weak, nonatomic) IBOutlet UITableView *moreTabView;
 @property(nonatomic,strong) NSArray * dataArr;

@@ -18,7 +18,7 @@
     [super viewDidLoad];
     [super loadBarButton:3];
     
-    
+    majorArr = [[NSMutableArray alloc]init];
     
     [self.navigationController setNavigationBarHidden:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playSpeech:) name:@"PlaySpeech" object:nil];
@@ -29,6 +29,7 @@
 - (void) playSpeech:(NSNotification *)notification{
     NSDictionary *dic = [notification object];
     NSLog(@"%@",dic);
+    majorStr = [dic objectForKey:@"major"];
     
     if(self.isPlaying == YES){
         [MJAudioTool playMusic:@"9行李寄存区.m4a"];
@@ -36,6 +37,7 @@
         if (!player.isPlaying) {
             [self locationNotification];
         }
+        
     }
 }
 
@@ -51,7 +53,6 @@
 -(void) locationNotification{
     NSLog(@"fss");
     UILocalNotification *local = [[UILocalNotification alloc] init];
-    
     //设置属性
     //操作标题
     local.alertAction = @"友情提示";
@@ -66,8 +67,16 @@
     
     //添加（注册）通知
     UIApplication *app = [UIApplication sharedApplication];
-    [app cancelAllLocalNotifications]; //清除所有通知
-    [app scheduleLocalNotification:local];
+    
+
+    [majorArr insertObject:majorStr atIndex:0];
+    if(majorArr.count>=2){
+        if(![majorArr[0] isEqualToString:majorArr[1]]){
+            [app cancelAllLocalNotifications]; //清除所有通知
+            [app scheduleLocalNotification:local];
+        }
+        [majorArr removeLastObject];
+    }
 }
 
 - (IBAction)selectedAction:(UISegmentedControl *)sender
